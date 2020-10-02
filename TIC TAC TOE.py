@@ -10,6 +10,7 @@ board = ["-", "-", "-",
          "-", "-", "-",
          "-", "-", "-"] # Board
 
+# Functions
 player = "X"
 button = []
 stop_game = False
@@ -18,6 +19,10 @@ stop_game_tie = False
 def Turn(): # Printing Turn
     text.delete(0, END)
     text.insert(0, "{}'S TURN".format(player))
+
+def Exit():
+    root.destroy()
+    exit()
 
 def Game_Over(): # Chech if game is over
     Check_Winner()
@@ -77,41 +82,8 @@ def Add_Text(pos, play): # Add Text
     if pos not in button and stop_game == False and stop_game_tie == False and pos != 9:
         Turn()
         
-        if pos == 0:
-            button_1.configure(text = play)
-            board[0] = player
-
-        elif pos == 1:
-            button_2.configure(text = play)
-            board[1] = player
-        
-        elif pos == 2:
-            button_3.configure(text = play)
-            board[2] = player
-        
-        elif pos == 3:
-            button_4.configure(text = play)
-            board[3] = player
-        
-        elif pos == 4:
-            button_5.configure(text = play)
-            board[4] = player
-        
-        elif pos == 5:
-            button_6.configure(text = play)
-            board[5] = player
-        
-        elif pos == 6:
-            button_7.configure(text = play)
-            board[6] = player
-        
-        elif pos == 7:
-            button_8.configure(text = play)
-            board[7] = player
-        
-        else:
-            button_9.configure(text = play)
-            board[8] = player
+        def_buttons[pos].configure(text = play)
+        board[pos] = player
         
         button.append(pos)
         Hplayer()
@@ -120,15 +92,6 @@ def Add_Text(pos, play): # Add Text
 
 # GRID
 def New_Match(): # New Match Button Function
-    global button_1
-    global button_2
-    global button_3
-    global button_4
-    global button_5
-    global button_6
-    global button_7
-    global button_8
-    global button_9
     global board
     global player
     global button
@@ -153,7 +116,7 @@ def New_Match(): # New Match Button Function
     stop_game_tie = False
     Turn()
 
-# General Buttons
+# Buttons
 
 Turn()
 
@@ -199,9 +162,12 @@ button_9.pack(side = LEFT)
 frame4 = Frame(frame)
 frame4.pack()
 
-button_clear = Button(frame4, text = "NEW MATCH", width = 25, height = 3, command = lambda:Add_Text(9, player))
+button_clear = Button(frame4, text = "NEW MATCH", width = 13, height = 3, command = lambda:Add_Text(9, player))
 button_clear.pack(side = LEFT)
 
-New_Match()
+exit_button = Button(frame4, text = "EXIT", width = 12, height = 3, command = lambda:Exit())
+exit_button.pack(side = LEFT)
+
+def_buttons = [button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9]
 
 root.mainloop()
