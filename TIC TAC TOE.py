@@ -26,12 +26,14 @@ def Exit():
 
 def Game_Over(): # Chech if game is over
     Check_Winner()
-    Check_Tie()
 
     if stop_game == True:
         Hplayer()
         text.delete(0, END)
         text.insert(0, "'{}' WINNER".format(player))
+
+    else:
+        Check_Tie()
 
     if stop_game_tie == True:
         text.delete(0, END)
@@ -75,9 +77,6 @@ def Hplayer(): # Managing Turn
 
 def Add_Text(pos, play): # Add Text
     global button
-    
-    if pos == 9:
-        New_Match()
 
     if pos not in button and stop_game == False and stop_game_tie == False and pos != 9:
         Turn()
@@ -162,7 +161,7 @@ button_9.pack(side = LEFT)
 frame4 = Frame(frame)
 frame4.pack()
 
-button_clear = Button(frame4, text = "NEW MATCH", width = 13, height = 3, command = lambda:Add_Text(9, player))
+button_clear = Button(frame4, text = "NEW MATCH", width = 13, height = 3, command = lambda:New_Match())
 button_clear.pack(side = LEFT)
 
 exit_button = Button(frame4, text = "EXIT", width = 12, height = 3, command = lambda:Exit())
